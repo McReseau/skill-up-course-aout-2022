@@ -1,0 +1,13 @@
+---
+# tasks file for GenHost
+- name: generate fichier hosts
+  template:
+    src: hosts.j2
+    dest: /tmp/hosts
+- name: generer fichier
+  file:
+    path: /tmp/jeteste
+    state: touch
+- name: affichage de la variable
+  debug:
+    msg: le contenu de la variable web est  => {{ web }}

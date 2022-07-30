@@ -1,0 +1,37 @@
+---
+- name: play1
+  hosts: all
+  tasks:
+  - name: désinstallation du paquet httpd
+    yum:
+      name: httpd
+      state: absent
+  - name: installation du contenu {{ web }}
+    yum:
+      name: "{{web}}"
+      state: present
+    when: web is defined
+  - name: activation du service {{web}}
+    service:
+      name: "{{web}}"
+      state: started
+      enabled: yes
+    when: web is defined
+  - name: installation de {{package}}
+    yum:
+      name: "{{package}}"
+      state: present
+    when: package is defined
+  - name: activation du service {{package}}
+    service:
+      name: "{{package}}"
+      state: started
+      enabled: yes
+    when: (package is defined) and (ansible_hostname in groups['file'])
+  - name: ouverture des ports du firewall {{port}}
+    firewalld:
+      immediate: yes
+      permanent: yes
+      state: enabled
+      port: "{{port}}"
+    when: port is defined 

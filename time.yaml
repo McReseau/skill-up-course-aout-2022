@@ -1,0 +1,9 @@
+---
+- name: Lab time
+  hosts: ansible1
+  vars:
+  - timesync_ntp_servers:
+    - hostname: 0.africa.pool.ntp.org
+      iburst: yes
+  roles:
+  - rhel-system-roles.timesync 

@@ -1,0 +1,20 @@
+---
+- name: lab71
+  hosts: all
+  tasks:
+  - name: création du point de montage
+    file:
+      path: /data
+      state: directory
+    when: ansible_lvm.lvs.lv1 is defined
+  - name: montage du disque
+    mount:
+      src: /dev/storage/lv1
+      path: /data
+      state: mounted
+      fstype: xfs
+    when: ansible_lvm.lvs.lv1 is defined
+  - name: Affichage de la capacité du disque
+    debug:
+      msg: La taille de lv1 est => {{ansible_lvm.lvs.lv1.size_g}} Go
+    when: ansible_lvm.lvs.lv1 is defined

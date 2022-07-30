@@ -1,0 +1,9 @@
+---
+- name: test
+  hosts: all
+  vars:
+    web: nginx
+  tasks:
+  - name: inclusion d'un rôle
+    include_role:
+      name: GenHost
