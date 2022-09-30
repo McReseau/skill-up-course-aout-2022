@@ -1,0 +1,23 @@
+---
+- name: modification des propriétés du fichier /home/ansible/file1
+  hosts: ansible3,ansible4,ansible5
+  tasks:
+  - name: creation du fichier
+    file:
+       path: /home/ansible/file1
+       state: touch
+  - name: Récupération des propriétés du fichier /home/ansible/file1
+    stat:
+      path: /home/ansible/file1
+    register: test
+  - name: affichage du contenu de la variable test
+    debug:
+      var: test
+  - name: modification des droits ugo
+    file:
+      path: /home/ansible/file1
+      mode: '0777'
+    when: test.stat.mode != '0777'
+  - name:
+    command: 'ls -l /home/ansible/file1'
+

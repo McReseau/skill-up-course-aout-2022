@@ -1,0 +1,12 @@
+---
+- name: generer hosts
+  hosts: all
+  tasks:
+  - name: generate fichier hosts
+    template:
+      src: hosts.j2
+      dest: /tmp/hosts
+  - name: generer fichier
+    file:
+      path: /tmp/jeteste
+      state: touch

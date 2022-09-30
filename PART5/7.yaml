@@ -1,0 +1,22 @@
+---
+- name: test
+  hosts: ansible1
+  vars:
+    services:
+      - httpd
+      - smb
+      - vsftpd
+  tasks:
+  - name: task 1
+    yum:
+      name:
+      - httpd
+      - vsftpd
+      - samba
+      state: present
+  - name: task 2
+    service:
+      name: "{{ item  }}"
+      state: started
+      enabled: yes
+    loop: "{{ services  }}"

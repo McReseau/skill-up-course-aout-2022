@@ -1,0 +1,10 @@
+---
+- name:
+  hosts: web
+  tasks:
+  - name: génération du fichier
+    template:
+      src: lab83.j2
+      dest: /tmp/result
+  - name: affiche du contenu des fichiers
+    command: cat /tmp/result

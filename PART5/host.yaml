@@ -1,0 +1,15 @@
+---
+- name: test fact
+  hosts: ansible1
+  tasks:
+  - name: install web packages {{ web }} 
+    yum:
+      name: "{{ web }}"
+      state: present
+- name: test fact 2
+  hosts: ansible2
+  tasks:
+  - name: install web packages {{ web }}
+    yum: 
+      name: "{{ web  }}"
+      state: present

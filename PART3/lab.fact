@@ -1,0 +1,8 @@
+[pkg]
+  share_pkg=samba
+  file_pkg=vsftpd
+  web_pkg=httpd
+[svc]
+  share_svc=smb
+  file_svc=vsftpd
+  web_svc=httpd

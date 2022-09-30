@@ -1,0 +1,16 @@
+---
+- name: Désactiver des connections SSH pour root
+  hosts: all
+  tasks:
+  - name: désactivation du ssh pour root
+    lineinfile:
+       dest: /etc/ssh/sshd_config
+       regexp: '^PermitRootLogin no'
+       line: PermitRootLogin yes
+    notify: restart sshd
+  handlers:
+  - name: restart sshd
+    service: 
+      name: sshd
+      state: restarted
+

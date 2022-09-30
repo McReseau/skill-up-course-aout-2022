@@ -1,0 +1,5 @@
+[services]
+  web = httpd
+  ftp = vsftpd
+[test]
+  essai = test

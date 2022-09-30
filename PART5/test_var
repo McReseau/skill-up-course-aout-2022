@@ -1,0 +1,3 @@
+web: httpd
+file: vsftpd
+network: nmap

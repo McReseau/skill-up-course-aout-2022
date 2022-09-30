@@ -1,0 +1,19 @@
+---
+- name: user create
+  hosts: ansible3, ansible4
+  vars_files: 
+  - utilisateur
+  - secret1
+  tasks:
+  - name: création du groupe test
+    group:
+      name: test
+      state: present
+  - name: création des utilisateurs
+    user:
+      name: "{{item.user}}"
+      state: present
+      password: "{{ password | password_hash('sha512', 'test') }}"
+      groups: "{{item.group}}"
+      shell: "{{item.shell}}"
+    loop: "{{liste}}"

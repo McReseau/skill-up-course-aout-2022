@@ -1,0 +1,18 @@
+---
+- name: test
+  hosts: ansible1, ansible2
+  tasks:
+  - name: delete message
+    file:
+      path: /var/ftp/pub/README
+      state: absent
+  - name: installe vsftpd
+    yum:
+      name: vsftpd
+      state: absent
+  - name: autorise le service ftp
+    firewalld:
+      service: ftp
+      permanent: yes
+      immediate: yes
+      state: disabled       

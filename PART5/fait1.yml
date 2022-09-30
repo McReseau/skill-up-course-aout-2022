@@ -1,0 +1,39 @@
+---
+- name: fact
+  hosts: ansible3
+  tasks:
+  - name: affichage des faits
+    debug:
+      var: ansible_facts
+  - name: aff
+    debug:
+      var: ansible_default_ipv4.address
+  - name: tefdf
+    debug:
+      msg: Affichage du nom d'hôte => {{ansible_hostname}}
+- name: fact 1
+  hosts: ansible4
+  tasks:
+  - name: dsfsd
+    debug:
+      msg: Affichage du nom d'hôte => {{ansible_hostname}}
+  - name: sqdqs
+    debug:
+      msg: La taille de la partition /dev/nvme0n1p1 est => {{ ansible_devices.nvme0n1.partitions.nvme0n1p1.size }}
+  - name: os distribution old
+    debug:
+      var: ansible_distribution
+  - name: os distribution new
+    debug:
+      var: hostvars
+     # var: ansible_facts['distribution']
+  - name: test
+    package_facts:
+      manager: auto
+  
+  - name: Print the rpm package facts
+    debug:
+      var: ansible_facts.packages
+  - name: print version of httpd packages
+    debug:
+      var: ansible_facts.packages.httpd[0].version

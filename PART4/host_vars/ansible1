@@ -1,0 +1,2 @@
+hostname: ansible1
+web: httpd

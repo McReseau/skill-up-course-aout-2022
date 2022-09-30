@@ -1,0 +1,19 @@
+---
+- name: je copie
+  hosts: ansible1
+  tasks:
+  - name: création du répertoire
+    file:
+      path: /etc/ansible/facts.d
+      state: directory
+  - name: copie fact
+    copy:
+      src: /home/ansible/test/test.fact
+      dest: /etc/ansible/facts.d
+  - name: affichage fact
+    debug:
+      var: ansible_facts["ansible_local"]["test"]["packages"]["web"]
+  - name: install web package {{ ansible_facts["ansible_local"]["test"]["packages"]["web"]  }}
+    yum:
+      name: "{{ ansible_facts['ansible_local']['test']['packages']['web'] }}"
+      state: present

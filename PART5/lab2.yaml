@@ -1,0 +1,12 @@
+---
+- name: test
+  hosts: ansible3
+  tasks:
+  - name: install nmap
+    yum: 
+      name:
+        - nmap
+        - httpd
+        - vsftpd
+      state: absent
+

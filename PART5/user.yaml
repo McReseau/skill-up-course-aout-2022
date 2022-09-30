@@ -1,0 +1,13 @@
+---
+- name: test vault
+  hosts: ansible1
+  vars_files:
+  - user
+  - user1
+  tasks:
+  - name: affichage du contenu fichier user
+    debug:
+      msg: Username => {{ username }}; Password => {{password}} 
+  - name: affichage du contenu fichier user
+    debug:
+      msg: Username => {{ username1 }}; Password => {{password1}}

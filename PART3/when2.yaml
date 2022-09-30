@@ -1,0 +1,32 @@
+---
+- name: when2
+  hosts: all
+  tasks:
+  - name: installation du paquet httpd
+    yum:
+      name: httpd
+      state: present
+    when: ansible_hostname == "ansible1" or ansible_hostname == "ansible2"
+  - name: activation du httpd
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+    when: ansible_facts['hostname'] == "ansible1" or ansible_facts['hostname'] == "ansible2"
+  - name: installation du paquet vsftpd
+    yum:
+      name: vsftpd
+      state: present
+    when: ansible_hostname == "ansible3" or ansible_facts['hostname'] == "ansible4"
+  - name: activation du vsftpd
+    service:
+      name: vsftpd
+      state: started
+      enabled: yes
+    when: ansible_facts['hostname'] == "ansible3" or ansible_facts['hostname'] == "ansible4"
+  - name: installation du paquet haproxy
+    yum:
+      name: haproxy
+      state: present
+    when: ansible_hostname == "ansible5"
+

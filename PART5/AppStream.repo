@@ -1,0 +1,5 @@
+[AppStream]
+name="Appstream repository"
+baseurl=file:///repos/AppStream
+enabled=1
+gpgcheck=0

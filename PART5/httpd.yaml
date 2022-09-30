@@ -1,0 +1,14 @@
+---
+- name: Installation de notre serveur web
+  hosts: ansible3,ansible4,ansible5
+  serial: 1
+  tasks:
+  - name: installation de httpd
+    yum:
+      name: httpd
+      state: present
+  - name: activation du service httpd
+    systemd:
+      name: httpd
+      state: started
+      enabled: yes 

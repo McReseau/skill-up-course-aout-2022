@@ -1,0 +1,19 @@
+---
+- name: lab92
+  hosts: all
+  serial: 1
+  vars:
+  - selinux_policy: targeted
+  - selinux_state: enforcing
+  - selinux_fcontexts:
+    - { target: '/test1(/.*)?', setype: 'tmp_t', ftype: 'd', state: 'present'}
+  - selinux_restore_dirs:
+    - /test1
+  tasks:
+  - name: Création du répertoire /test1
+    file:
+      path: /test1
+      state: directory
+  - name: Appelons le rôle selinux
+    include_role:
+      name: rhel-system-roles.selinux

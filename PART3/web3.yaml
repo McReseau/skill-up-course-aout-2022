@@ -1,0 +1,15 @@
+---
+- name: when
+  hosts: all
+  tasks:
+  - name: si existe
+    debug:
+      msg: "le disque dur sda existe"
+#    when: '"sda" in ansible_facts["devices"]' 
+    when: ansible_facts['devices']['sda'] is defined 
+  - name: si n'existe pas
+    debug: 
+      msg: "le disque dur sda n'existe pas"
+#    when: '"sda" not in ansible_facts["devices"]'
+    when: ansible_facts['devices']['sda'] is not defined
+  

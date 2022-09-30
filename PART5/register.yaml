@@ -1,0 +1,10 @@
+---
+- name: test
+  hosts: ansible1
+  tasks:
+  - name: Exécution + récupération du résultat 
+    command: cat /etc/passwd
+    register: test
+  - name: Afficher le contenu de test
+    debug:
+      var: test

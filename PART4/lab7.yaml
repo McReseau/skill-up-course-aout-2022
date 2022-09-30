@@ -1,0 +1,22 @@
+---
+- name: lab 7
+  hosts: all
+  tasks:
+  - name: gestion du montage
+    block:
+    - name: montage du cdrom dans /nlock
+      mount:
+        path: /block
+        src: /dev/cdrom
+        state: present
+        fstype: iso9660
+    - name: montage du cdrom
+      command: mount -a
+    rescue:
+    - name: Création du répertoire
+      file:
+        path: /block
+        state: directory
+    always:
+    - name: Montage 
+      command: mount -a

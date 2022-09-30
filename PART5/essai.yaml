@@ -1,0 +1,16 @@
+---
+- name: Server
+  hosts: ansible1, ansible2
+  tasks:
+  - name: copy
+    copy: 
+      dest: /etc/motd
+      content: |
+         Bienvenue sur le serveur: {{ansible_hostname}}
+         Distribution: {{ansible_distribution }}
+         Nombre de CPU:
+         Quantité mémoire: 
+  - name: récupération fichier
+    fetch:
+      src: /etc/motd
+      dest: MN

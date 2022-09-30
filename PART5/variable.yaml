@@ -1,0 +1,27 @@
+---
+- name: Test fact
+  hosts: ansible3, ansible4
+  tasks:
+  - name: Création du répertoire
+    file:
+      path: /etc/ansible/facts.d
+      state: directory
+  - name: COpie des faits personnalisés
+    copy:
+      src: /home/ansible/test/variable.fact
+      dest: /etc/ansible/facts.d
+  - name: Affichage de Ansible_local
+    debug:
+      var: ansible_facts['ansible_local']
+  - name: installation des paquets
+    yum:
+      name:
+      - "{{ansible_facts['ansible_local']['variable']['paquets']['web'] }}"
+      - "{{ansible_facts['ansible_local']['variable']['paquets']['share'] }}"
+      - "{{ ansible_facts['ansible_local']['variable']['paquets']['ftp'] }}"
+      state: present
+  - name: activation des services
+    service:
+      name: "{{ ansible_facts['ansible_local']['variable']['services']['web']}}"
+      state: started
+      enabled: yes
