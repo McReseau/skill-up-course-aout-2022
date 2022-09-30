@@ -1,0 +1,20 @@
+---
+- name: test fact
+  hosts: ansible2
+  tasks:
+  - name: création du répertoire
+    file:
+      path: /etc/ansible/facts.d
+      state: directory
+  - name: copie du fichier
+    copy:
+      src: testfacts.fact
+      dest: /etc/ansible/facts.d
+  - name: affichage des faits
+    debug:
+      var: ansible_facts['ansible_local']
+  - name: installation de {{ansible_facts['ansible_local']['testfacts']['services']['ftp']}}
+    yum:
+      name: "{{ansible_facts['ansible_local']['testfacts']['services']['ftp']}}"
+      state: absent
+

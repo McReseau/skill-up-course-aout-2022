@@ -1,0 +1,23 @@
+---
+- name: test
+  hosts: ansible1, ansible2
+  tasks:
+  - name: installe vsftpd
+    yum:
+      name: vsftpd
+      state: present
+  - name: activation vsftpd
+    service:
+      name: vsftpd
+      state: started
+      enabled: yes
+  - name: copier le message
+    copy:
+      content: "Bienvenue sur skill-up.tn"
+      dest: /var/ftp/pub/README
+  - name: autorise le service ftp
+    firewalld:
+      service: ftp
+      permanent: yes
+      immediate: yes
+      state: enabled       

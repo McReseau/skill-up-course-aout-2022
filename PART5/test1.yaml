@@ -1,0 +1,8 @@
+---
+- name: test
+  hosts: ansible2,ansible3,ansible4
+  tasks:
+  - name: genere
+    template:
+      src: test.j2
+      dest: /tmp/test.txt

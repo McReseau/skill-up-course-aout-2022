@@ -1,0 +1,17 @@
+---
+- name: test
+  hosts: ansible3
+  tasks:
+  - name: essai
+    yum:
+      name:
+      - vsftpd
+      - httpd
+      state: present
+  - name: essai 2
+    service:
+      name:
+      - vsftpd
+      - httpd
+      state: started
+      enabled: yes

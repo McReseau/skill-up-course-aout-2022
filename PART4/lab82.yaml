@@ -1,0 +1,56 @@
+---
+- name: Installation du serveur web et ftp
+  hosts: ansible2, ansible3
+  force_handlers: true
+  tasks:
+  - name: installation du serveur web
+    yum: 
+      name: 
+       - httpd
+       - policycoreutils-python-utils
+      state: present
+    notify:
+    - restart httpd
+  - name: ouverture du port
+    firewalld:
+      immediate: yes
+      permanent: yes
+      service: http
+      state: enabled
+  - name: Changement du documentRoot
+    lineinfile:
+      regexp: '^DocumentRoot "/var/www/html"'
+      line: DocumentRoot "/home/ansible/web"
+      path: /etc/httpd/conf/httpd.conf
+  - name: changment le Directory du ROot
+    lineinfile:
+      regexp: '^<Directory "/var/www">'
+      line: <Directory "/home/ansible/web">
+      path: /etc/httpd/conf/httpd.conf
+  - name: creation répertoire
+    file: 
+      path: /home/ansible/web
+      state: directory
+
+  - name: creation du contenu
+    copy:
+      content: |
+         <h1> Bienvenue sur notre site web </h1>
+         <h2> Que pouvons-nous faire pour vous aider? </h2>
+      dest: /home/ansible/web/index.html
+  - name: definition du context
+    sefcontext:
+      target: '/home/ansible/web(/.*)?'
+      setype: httpd_sys_content_t
+      state: present
+    notify:
+    -  run restorecon
+  handlers:
+  - name: restart httpd
+    service:
+       name : httpd
+       state: started
+       enabled: yes
+  - name: run restorecon
+    command: restorecon -v /home/ansible/web -R
+

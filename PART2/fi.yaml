@@ -1,0 +1,24 @@
+---
+- name: lab10
+  hosts: ansible1
+  force_handlers: True
+  vars:
+    - firewall_rules:
+      - service: https
+      - service: ftp
+        state: disabled
+  tasks:
+  - name: enable direwald services
+    firewalld:
+      service: "{{ item.service}}"
+      zone: "{{ item.zone | default(omit) }}"
+      permanent: yes
+      state: "{{ item.state | default('enabled')}}"
+    loop: "{{ firewall_rules }}"
+    when: item.service is defined
+    notify: reload firewalld
+  handlers:
+  - name: relad firewalld
+    service:
+      state: reloaded
+      name: firewalld

@@ -1,0 +1,35 @@
+---
+- name: lab 6
+  hosts: all
+  tasks:
+  - name: création du rep
+    file:
+      path: /etc/ansible/facts.d
+      state: directory
+  - name: copie facts
+    copy:
+      src: lab.fact
+      dest: /etc/ansible/facts.d
+  - name: installation
+    yum:
+      name:
+      - '{{ ansible_facts["ansible_local"]["lab"]["pkg"]["share_pkg"]  }}'
+      - "{{ ansible_facts['ansible_local']['lab']['pkg']['file_pkg']  }}"
+      - "{{ ansible_facts['ansible_local']['lab']['pkg']['web_pkg']  }}"
+      state: present
+  - name: activation du service samba
+    service:
+      name: "{{ ansible_facts['ansible_local']['lab']['svc']['share_svc']  }}"
+      enabled: yes
+      state: restarted
+  - name: activation du service ftp
+    service:
+      name: "{{ ansible_facts['ansible_local']['lab']['svc']['file_svc']  }}"
+      enabled: yes
+      state: restarted
+  - name: activation du service web
+    service:
+      name: "{{ ansible_facts['ansible_local']['lab']['svc']['web_svc']  }}"
+      enabled: yes
+      state: restarted
+

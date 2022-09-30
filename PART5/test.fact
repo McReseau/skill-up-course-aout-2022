@@ -1,0 +1,6 @@
+[packages]
+  web = httpd
+  ftp = vsftpd
+[services]
+  web = httpd
+  file = vsftpd

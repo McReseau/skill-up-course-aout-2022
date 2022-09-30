@@ -1,0 +1,9 @@
+all:
+  children:
+    first:
+      hosts:
+        ansible1: {}
+        ansible2: {}
+    ungrouped:
+      hosts:
+        ansible3: {}

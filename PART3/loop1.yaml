@@ -1,0 +1,22 @@
+---
+- name: play1
+  hosts: ansible1
+  vars:
+    - services:
+      - httpd
+      - smb
+      - vsftpd
+  tasks:  
+  - name: installation des paquets
+    yum:
+      name: 
+      - httpd
+      - samba
+      - vsftpd
+      state: present
+  - name: activation des services
+    service:
+      name: "{{ item }}"
+      state: started
+      enabled: yes
+    loop: "{{services}}"

@@ -1,0 +1,21 @@
+---
+- name: Récupération des faits
+  hosts: ansible1
+  vars_files: test_var
+  gather_facts: False
+  tasks:
+  - name: install web
+    yum:
+      name: "{{web}}"
+      state: present
+  - name: Récupération et affichage des faits
+    debug:
+      var: ansible_facts
+  - name: architecture du système
+    debug:
+      var: ansible_fqdn
+#      var: ansible_facts['architecture']
+  - name: device
+    debug:
+      var: ansible_facts['devices']['nvme0n1']['partitions']['nvme0n1p1']['size']
+ 

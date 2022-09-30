@@ -1,0 +1,29 @@
+---
+- name: LAB8
+  hosts: all
+  tasks:
+  - name: génération fichier motd
+    copy:
+      content: |
+         Bienvenue sur le serveur: {{ansible_fqdn}}
+         Distribution: {{ansible_distribution}}
+         Nombre de CPU: {{ansible_processor_vcpus}}
+         Quantité de mémoire: {{ansible_memtotal_mb}}
+      dest: /etc/motd
+  - name: copie du fichier motd
+    fetch:
+      src: /etc/motd
+      dest: /home/ansible/LAB8/MN
+  - name: modification du fichier hosts
+    lineinfile:
+      regexp: 'control.skill-up.tn'
+      line: control.tek-up.tn
+      path: /etc/hosts
+    when: ansible_hostname == "ansible1" or ansible_hostname == "ansible5"
+  - name:  Création de fichier
+    file:
+      path: /tmp/texte.txt
+      state: touch
+      owner: root
+      group: ansible
+

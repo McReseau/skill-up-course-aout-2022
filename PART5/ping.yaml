@@ -1,0 +1,7 @@
+---
+- name: optimisation playbook
+  hosts: ansible3, ansible4, ansible5
+  serial: 1
+  tasks:
+  - name: test connectivité
+    ping:

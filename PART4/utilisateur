@@ -1,0 +1,9 @@
+liste:
+- user: ahmed
+  group: test,wheel
+  password: test1234
+  shell: /bin/sh
+- user: mariem
+  group: wheel
+  password: test12345
+  shell: /bin/bash

@@ -1,0 +1,26 @@
+---
+- name: test
+  hosts: all
+  tasks:
+  - name: copie hosts
+    copy:
+      content: |
+          192.168.10.100 control.skill-up.tn  control
+          192.168.10.10  ansible1.skill-up.tn ansible1
+          192.168.10.20  ansible2.skill-up.tn ansible2
+          192.168.10.30  ansible3.skill-up.tn ansible3
+          192.168.10.40  ansible4.skill-up.tn ansible4
+          192.168.10.50  ansible5.skill-up.tn ansible5
+      dest: /tmp/content.txt
+- name: play 2
+  hosts: ansible3
+  tasks:
+  - name: tâche2
+    yum:
+      name: httpd
+      state: present
+  - name: tache 3
+    service:
+      name: httpd
+      state: started
+      enabled: yes

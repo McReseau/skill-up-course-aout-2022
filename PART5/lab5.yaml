@@ -1,0 +1,57 @@
+---
+- name: lab5
+  hosts: ansible1, ansible2, ansible3, ansible4
+  tasks: 
+  - name: create repos
+    file:
+      path: /repos
+      state: directory
+  - name: add fstab and mount
+    mount:
+      path: /repos
+      src: /dev/sr0
+      fstype: iso9660
+      state: mounted
+  - name: base repos
+    copy:
+      content: |
+         [BaseOS1]
+         baseurl=file:///repos/BaseOS
+         name="BaseOS REpos1"
+         enabled=1
+         gpgcheck=0
+      dest: /etc/yum.repos.d/BaseOS1.repo
+  - name: AppStream repos
+    copy:
+      content: |
+         [AppStream1]
+         baseurl=file:///repos/AppStream
+         name="APpStream REpos1"
+         enabled=1
+         gpgcheck=0
+      dest: /etc/yum.repos.d/AppStream1.repo
+  - name: installer httpd
+    package:
+      name: httpd
+      state: present
+  - name: activer httpd service
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+  - name: vérification du statut
+    command: "systemctl status httpd"
+
+- name: test2
+  hosts: ansible1.skill-up.tn
+  tasks:
+  - name: install samba
+    yum:
+      name: samba
+      state: present
+  - name: activation service samba
+    service:
+      name: smb
+      state: started
+      enabled: yes
+

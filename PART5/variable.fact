@@ -1,0 +1,8 @@
+[paquets]
+  web = httpd
+  ftp = vsftpd
+  share = samba
+[services]
+  web = httpd
+  share = smb
+  ftp = vsftpd

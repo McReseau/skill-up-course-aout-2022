@@ -1,0 +1,6 @@
+PermitRootLogin Yes
+Port 22
+{{ansible_facts['default_ipv4']['address']}}
+{% for host in groups['web']  %}
+  {{host}}
+{% endfor  %}
